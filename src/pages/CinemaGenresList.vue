@@ -1,0 +1,31 @@
+<template>
+  <div>
+    <headerPage />
+    <div>
+      <ul>
+        <li v-for="item in ganres" :key="item.id">{{ item.name }}</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+
+<script>
+import HeaderPage from "@/components/HeaderPage";
+export default {
+  components: {
+    HeaderPage
+  },
+  data() {
+    return {
+      ganres: [
+        {
+          id: 0,
+          name: 'Драма'
+        }, { id: 1, name: 'Криминал' }, { id: 2, name: 'Фентези' }, { id: 3, name: 'Биография' }, { id: 4, name: 'Военный' }, { id: 11, name: 'История' }, { id: 13, name: 'Мелодрама' }, { id: 15, name: 'Комедия' },
+        { id: 5, name: 'Приключения' }, { id: 6, name: 'Музыка' }, { id: 7, name: 'Мультфильм' }, { id: 8, name: 'Семейный' }, { id: 12, name: 'Боевик' }, { id: 14, name: 'Фантастика' }, { id: 16, name: 'Триллер' }, { id: 17, name: 'Криминал' }, { id: 18, name: 'Мюзикл' },
+        { id: 9, name: 'Аниме' }, { id: 10, name: 'Детектив' }]
+    }
+  },
+};
+</script>

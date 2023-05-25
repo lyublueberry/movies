@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import CinemaHallList from "@/pages/CinemaHallList";
+import CinemaGenresList from "@/pages/CinemaGenresList.vue";
 import MoviesList from "@/pages/MoviesList";
 
 Vue.use(VueRouter);
@@ -14,7 +14,7 @@ const route = [
   {
     path: '/cinema',
     name: 'CinemaHallList',
-    component: CinemaHallList
+    component: CinemaGenresList
   }
 ];
 

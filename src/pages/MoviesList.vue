@@ -1,32 +1,38 @@
 <template>
   <div class="">
-    <headerPage/>
+    <headerPage />
     <div>
-    <b-table :items="items"></b-table>
-  </div>
+      <b-table :items="Object.values(listOfFilms)" :fields="fields"></b-table>
+    </div>
   </div>
 </template>
 
 <script>
 import HeaderPage from "@/components/HeaderPage";
-
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'MoviesList',
   components: {
     HeaderPage
   },
-  props: {
-  },
   data() {
-      return {
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ]
-      }
+    return {
+      fields: ['nameRu', 'nameEn', 'rating', 'year', 'filmLength'],
     }
+  },
+  computed: {
+    ...mapGetters([
+      'listOfFilms'
+    ]),
+  },
+  created() {
+    this.getMovies();
+  },
+  methods: {
+    ...mapActions([
+      'getMovies'
+    ]),
+  }
 }
 </script>
 
