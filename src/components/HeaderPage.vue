@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <b-navbar type="dark" variant="dark">
             <b-navbar-nav>
                 <b-nav-item tag="router-link" :to="{ path: '/' }">Список популярных фильмов</b-nav-item>
@@ -13,7 +12,6 @@
 <script>
 export default {
   name: 'HeaderPage',
-
 }
 </script>
 

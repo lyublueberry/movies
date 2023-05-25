@@ -13,7 +13,7 @@ const route = [
   },
   {
     path: '/cinema',
-    name: 'CinemaHallList',
+    name: 'CinemaGenresList',
     component: CinemaGenresList
   }
 ];

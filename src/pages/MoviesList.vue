@@ -2,10 +2,18 @@
   <div>
     <headerPage />
     <div>
-      <b-table :items="Object.values(listOfFilms)" :fields="fields" @row-hovered="onRowHovered"
+      <b-table  
+        :items="Object.values(listOfFilms)"
+        :fields="fields"
+        @row-hovered="onRowHovered"
         @row-unhovered="onRowUnhovered">
       </b-table>
-      <b-tooltip v-if="rowTooltip" show :target="rowTooltip.target" triggers="manual">
+
+      <b-tooltip v-if="rowTooltip"
+        show
+        :target="rowTooltip.target"
+        triggers="manual">
+
         <p v-for="elem in rowTooltip.item.genres" :key="elem">
           {{ elem.genre }}
         </p>
@@ -52,5 +60,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>
