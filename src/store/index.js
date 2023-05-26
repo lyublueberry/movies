@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import { API} from '../common/constants';
+import { BASE_API } from '@/common/constants';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        listFilms: []
+        listFilms: [],
     },
     getters: {
         listOfFilms(state) {
@@ -20,22 +20,21 @@ export const store = new Vuex.Store({
         },
     },
     actions: {
-        getMovies({ commit }) {
-            return axios(API, {
+        getMovies(context, page) {
+            return axios(`${BASE_API}${page}`, {
                 method: 'GET',
                 headers: {
                     'X-API-KEY': process.env.VUE_APP_KEY,
                     'Content-Type': 'application/json',
                 },
             })
-                .then((movies) => {
-                    commit('ADD_MOVIES', movies.data.films);
-                    return movies.data.films;
-                })
-                .catch((error) => {
-                    console.log(error);
-                    return error;
-                });
+            .then((movies) => {
+                context.commit('ADD_MOVIES', movies.data.films);
+                return movies;
+            })
+            .catch((error) => {
+                return error;
+            });
         }
     },
 });

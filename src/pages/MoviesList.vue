@@ -2,12 +2,26 @@
   <div>
     <header-page />
     <div>
-      <b-table  
-        :items="Object.values(listOfFilms)"
+      <b-table
+        id="table-films"
         :fields="fileds"
+        :items="Object.values(listOfFilms)"
+        show-empty
+        :per-page="0"
+        :current-page="currentPage"
         @row-hovered="onRowHovered"
-        @row-unhovered="onRowUnhovered">
+        @row-unhovered="onRowUnhovered"
+        >
       </b-table>
+      
+      <b-pagination
+        aria-controls="table-films"
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        align="center"
+        >
+      </b-pagination>
 
       <b-tooltip v-if="rowTooltip"
         show
@@ -35,18 +49,21 @@ export default {
   data() {
     return {
       rowTooltip: null,
+      perPage: 2,
+      currentPage: 1,
     }
   },
   computed: {
     ...mapGetters([
-      'listOfFilms'
+      'listOfFilms',
+      'countPages'
     ]),
-    fileds(){
+    fileds() {
       return FIELDS;
+    },
+    rows() {
+      return this.listOfFilms.length
     }
-  },
-  created() {
-    this.getMovies();
   },
   methods: {
     ...mapActions([
@@ -60,7 +77,22 @@ export default {
     },
     onRowUnhovered() {
       this.rowTooltip = null;
+    },
+    loadData() {
+      let page = this.currentPage.toString();
+      this.$store.dispatch('getMovies', page);
     }
+  },
+  watch: {
+    currentPage(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.loadData();
+      }
+    }
+  },
+  created() {
+    this.getMovies();
+    this.loadData();
   }
 }
 </script>
