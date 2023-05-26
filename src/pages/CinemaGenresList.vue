@@ -1,9 +1,9 @@
 <template>
   <div>
-    <headerPage />
+    <header-page />
     <div>
       <ul>
-        <li v-for="item in ganres" :key="item.id">{{ item.name }}</li>
+        <li v-for="item in genres" :key="item.id">{{ item.name }}</li>
       </ul>
     </div>
   </div>
@@ -11,8 +11,8 @@
 
 
 <script>
-import HeaderPage from "@/components/HeaderPage";
-import ganres from "@/static/ganres.json";
+import HeaderPage from '@/components/HeaderPage';
+import genres from '@/static/genres.json';
 
 export default {
   components: {
@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     ganres(){
-      return ganres;
+      return genres;
     }
   }
 };

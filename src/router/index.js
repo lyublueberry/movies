@@ -1,7 +1,7 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import CinemaGenresList from "@/pages/CinemaGenresList.vue";
-import MoviesList from "@/pages/MoviesList";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import CinemaGenresList from '@/pages/CinemaGenresList.vue';
+import MoviesList from '@/pages/MoviesList';
 
 Vue.use(VueRouter);
 

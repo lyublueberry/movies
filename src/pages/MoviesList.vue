@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headerPage />
+    <header-page />
     <div>
       <b-table  
         :items="Object.values(listOfFilms)"
@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import HeaderPage from "@/components/HeaderPage";
+import HeaderPage from '@/components/HeaderPage';
 import { mapActions, mapGetters } from 'vuex';
-import { FIELDS } from "../common/constants";
+import { FIELDS } from '../common/constants';
 
 export default {
   name: 'MoviesList',
