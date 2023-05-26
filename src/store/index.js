@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 import axios from 'axios';
 
 Vue.use(Vuex);
+import { API, KEY } from "../common/constants";
+
 
 export const store = new Vuex.Store({
     state: {
@@ -20,10 +22,10 @@ export const store = new Vuex.Store({
     },
     actions: {
         getMovies({ commit }) {
-            return axios('https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1', {
+            return axios(API, {
                 method: 'GET',
                 headers: {
-                    'X-API-KEY': 'd14d1636-00af-4209-9f23-d8221bf90580',
+                    'X-API-KEY': KEY,
                     'Content-Type': 'application/json',
                 },
             })

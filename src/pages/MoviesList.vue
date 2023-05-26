@@ -4,7 +4,7 @@
     <div>
       <b-table  
         :items="Object.values(listOfFilms)"
-        :fields="fields"
+        :fields="fileds"
         @row-hovered="onRowHovered"
         @row-unhovered="onRowUnhovered">
       </b-table>
@@ -25,6 +25,8 @@
 <script>
 import HeaderPage from "@/components/HeaderPage";
 import { mapActions, mapGetters } from 'vuex';
+import { FIELDS } from "../common/constants";
+
 export default {
   name: 'MoviesList',
   components: {
@@ -33,13 +35,15 @@ export default {
   data() {
     return {
       rowTooltip: null,
-      fields: ['nameRu', 'nameEn', 'rating', 'year', 'filmLength'],
     }
   },
   computed: {
     ...mapGetters([
       'listOfFilms'
     ]),
+    fileds(){
+      return FIELDS;
+    }
   },
   created() {
     this.getMovies();
