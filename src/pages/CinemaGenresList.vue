@@ -19,7 +19,7 @@ export default {
     HeaderPage
   },
   computed: {
-    ganres(){
+    genres(){
       return genres;
     }
   }
