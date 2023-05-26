@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import { API, KEY } from '../common/constants';
+import { API} from '../common/constants';
 
 Vue.use(Vuex);
 
@@ -24,7 +24,7 @@ export const store = new Vuex.Store({
             return axios(API, {
                 method: 'GET',
                 headers: {
-                    'X-API-KEY': KEY,
+                    'X-API-KEY': process.env.VUE_APP_KEY,
                     'Content-Type': 'application/json',
                 },
             })
