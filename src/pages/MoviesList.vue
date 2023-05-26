@@ -14,7 +14,7 @@
         :target="rowTooltip.target"
         triggers="manual">
 
-        <p v-for="elem in rowTooltip.item.genres" :key="elem">
+        <p v-for="(elem, index) in rowTooltip.item.genres" :key="index">
           {{ elem.genre }}
         </p>
       </b-tooltip>

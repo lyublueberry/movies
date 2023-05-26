@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
     },
     mutations: {
         ADD_MOVIES(state, movies) {
-            state.listFilms = movies.films
+            state.listFilms = movies;
         },
     },
     actions: {
@@ -28,8 +28,8 @@ export const store = new Vuex.Store({
                 },
             })
                 .then((movies) => {
-                    commit('ADD_MOVIES', movies.data);
-                    return movies.data;
+                    commit('ADD_MOVIES', movies.data.films);
+                    return movies.data.films;
                 })
                 .catch((error) => {
                     console.log(error);
