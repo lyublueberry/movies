@@ -3,7 +3,7 @@
     <header-page />
     <div>
       <ul>
-        <li v-for="item in genres" :key="item.id">{{ item.name }}</li>
+        <li v-for="genre in this.listOfGenres" :key="genre.id">{{ genre.genre }}</li>
       </ul>
     </div>
   </div>
@@ -12,16 +12,30 @@
 
 <script>
 import HeaderPage from '@/components/HeaderPage';
-import genres from '@/static/genres.json';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
   components: {
     HeaderPage
   },
   computed: {
-    genres(){
-      return genres;
+    ...mapGetters([
+      'listOfGenres',
+      'isListGenresLoaded'
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'getGenres'
+    ]),
+    ...mapMutations([
+      'SET_LIST_LOADED_GENRES'
+    ]),
+  },
+  created() {
+    if(!this.isListGenresLoaded) {
+     this.getGenres();
     }
-  }
+  },
 };
 </script>

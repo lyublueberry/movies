@@ -38,7 +38,7 @@
 
 <script>
 import HeaderPage from '@/components/HeaderPage';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import { FIELDS } from '../common/constants';
 
 export default {
@@ -56,7 +56,7 @@ export default {
   computed: {
     ...mapGetters([
       'listOfFilms',
-      'countPages'
+      'isListFilmsLoaded',
     ]),
     fileds() {
       return FIELDS;
@@ -67,7 +67,10 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getMovies'
+      'getMovies',
+    ]),
+    ...mapMutations([
+      'SET_LIST_LOADED_FILMS'
     ]),
     onRowHovered(item, _, event) {
       this.rowTooltip = {
@@ -78,21 +81,27 @@ export default {
     onRowUnhovered() {
       this.rowTooltip = null;
     },
-    loadData() {
+    async loadFilms() {
       let page = this.currentPage.toString();
-      this.$store.dispatch('getMovies', page);
+      await this.$store.dispatch('getMovies', page)
+      .finally(()=> {
+        this.$store.commit('SET_LIST_LOADED_FILMS', true)
+      })
     }
   },
   watch: {
     currentPage(newValue, oldValue) {
       if (newValue !== oldValue) {
-        this.loadData();
+        this.loadFilms();
       }
-    }
+    },
   },
   created() {
-    this.getMovies();
-    this.loadData();
-  }
+    if(!this.isListFilmsLoaded){
+      this.getMovies();
+      this.loadFilms();
+    }
+  },
+
 }
 </script>

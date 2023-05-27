@@ -1,20 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import CinemaGenresList from '@/pages/CinemaGenresList.vue';
-import MoviesList from '@/pages/MoviesList';
 
 Vue.use(VueRouter);
 
 const route = [
   {
     path: '/',
-    name: 'MoviesList',
-    component: MoviesList
+    name: 'movies.list',
+    component: () => import("@/pages/MoviesList.vue")
   },
   {
     path: '/genres',
-    name: 'CinemaGenresList',
-    component: CinemaGenresList
+    name: 'cinema.genres.list',
+    component: () => import("@/pages/CinemaGenresList.vue")
   }
 ];
 
