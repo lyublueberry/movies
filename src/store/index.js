@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { BASE_API } from '@/common/constants';
-import getApiData  from '@/common/helpers';
+
+import { getAllFilms, getAllGenres } from '@/common/helpers';
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -37,17 +38,16 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
-        getMovies(context, page) {
+        async getMovies(context, page) {
             context.commit("SET_LIST_LOADED_FILMS", false);
-            const response = getApiData(BASE_API, '2.2', 'films', 'top?type=TOP_250_BEST_FILMS&page=', page);
-            console.log(response);
+            const response = getAllFilms('TOP_250_BEST_FILMS', page);
             response
             .then((movies) => {
-                console.log(movies);
                 context.commit('ADD_MOVIES', movies.films);
                 return movies
             })
             .catch((error) => {
+                console.error(error);
                 return error;
             })
             .finally(() => {
@@ -56,15 +56,14 @@ export const store = new Vuex.Store({
         },
         getGenres(context) {
             context.commit("SET_LIST_LOADED_GENRES", false);
-            const response = getApiData(BASE_API, '2.2', 'films', 'filters', '');
-            console.log(response);
+            const response = getAllGenres();
             response
             .then((genres) => {
-                console.log(genres);
                 context.commit('ADD_GENRES', genres.genres);
                 return genres.data;
             })
             .catch((error) => {
+                console.error(error);
                 return error;
             })
             .finally(() => {

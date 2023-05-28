@@ -1,11 +1,13 @@
 import axios from 'axios';
+import { BASE_API } from '@/common/constants';
 
-export default async function getApiData(apiUrl, version, section, method, params) {
+async function getApiData(version, section, method, params) {
     try {
-      const response = await axios.get(`${apiUrl}/v${version}/${section}/${method}${params}`, {
+      const response = await axios.get(`${BASE_API}/v${version}/${section}/${method}`, {
+        params,
         headers: {
           'accept': 'application/json',
-          'X-API-KEY': 'c84ddf80-564d-467a-b72a-00b258112d90' 
+          'X-API-KEY': process.env.VUE_APP_KEY
         }
       });
       const data = response.data;
@@ -13,4 +15,12 @@ export default async function getApiData(apiUrl, version, section, method, param
     } catch (error) {
       console.error(error);
     }
+  }
+
+export async function getAllFilms(type, page) {
+    return getApiData('2.2', 'films', 'top', { type, page });
+  }
+
+  export async function getAllGenres() {
+    return getApiData('2.2', 'films', 'filters');
   }
