@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
-import { BASE_API, GENRES_API } from '@/common/constants';
+
+import { getAllFilms, getAllGenres } from '@/common/helpers';
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -39,39 +40,30 @@ export const store = new Vuex.Store({
     actions: {
         async getMovies(context, page) {
             context.commit("SET_LIST_LOADED_FILMS", false);
-            return axios(`${BASE_API}${page}`, {
-                method: 'GET',
-                headers: {
-                    'X-API-KEY': process.env.VUE_APP_KEY,
-                    'Content-Type': 'application/json',
-                },
-            })
+            const response = getAllFilms('TOP_250_BEST_FILMS', page);
+            response
             .then((movies) => {
-                context.commit('ADD_MOVIES', movies.data.films);
+                context.commit('ADD_MOVIES', movies.films);
                 return movies
             })
             .catch((error) => {
+                console.error(error);
                 return error;
             })
             .finally(() => {
                 context.commit("SET_LIST_LOADED_FILMS", true); 
             });
-
         },
-        async getGenres(context) {
+        getGenres(context) {
             context.commit("SET_LIST_LOADED_GENRES", false);
-            return axios(GENRES_API, {
-                method: 'GET',
-                headers: {
-                    'X-API-KEY': process.env.VUE_APP_KEY,
-                    'Content-Type': 'application/json',
-                },
-            })
+            const response = getAllGenres();
+            response
             .then((genres) => {
-                context.commit('ADD_GENRES', genres.data.genres);
+                context.commit('ADD_GENRES', genres.genres);
                 return genres.data;
             })
             .catch((error) => {
+                console.error(error);
                 return error;
             })
             .finally(() => {
