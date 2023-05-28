@@ -7,7 +7,7 @@ async function getApiData(version, section, method, params) {
         params,
         headers: {
           'accept': 'application/json',
-          'X-API-KEY': process.env.VUE_APP_KEY
+          'X-API-KEY': process.env.VUE_APP_KINOPOISK_API_KEY
         }
       });
       const data = response.data;
