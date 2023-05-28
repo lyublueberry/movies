@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
-import { BASE_API, GENRES_API } from '@/common/constants';
+import { BASE_API } from '@/common/constants';
+import getApiData  from '@/common/helpers';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -37,17 +37,14 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
-        async getMovies(context, page) {
+        getMovies(context, page) {
             context.commit("SET_LIST_LOADED_FILMS", false);
-            return axios(`${BASE_API}${page}`, {
-                method: 'GET',
-                headers: {
-                    'X-API-KEY': process.env.VUE_APP_KEY,
-                    'Content-Type': 'application/json',
-                },
-            })
+            const response = getApiData(BASE_API, '2.2', 'films', 'top?type=TOP_250_BEST_FILMS&page=', page);
+            console.log(response);
+            response
             .then((movies) => {
-                context.commit('ADD_MOVIES', movies.data.films);
+                console.log(movies);
+                context.commit('ADD_MOVIES', movies.films);
                 return movies
             })
             .catch((error) => {
@@ -56,19 +53,15 @@ export const store = new Vuex.Store({
             .finally(() => {
                 context.commit("SET_LIST_LOADED_FILMS", true); 
             });
-
         },
-        async getGenres(context) {
+        getGenres(context) {
             context.commit("SET_LIST_LOADED_GENRES", false);
-            return axios(GENRES_API, {
-                method: 'GET',
-                headers: {
-                    'X-API-KEY': process.env.VUE_APP_KEY,
-                    'Content-Type': 'application/json',
-                },
-            })
+            const response = getApiData(BASE_API, '2.2', 'films', 'filters', '');
+            console.log(response);
+            response
             .then((genres) => {
-                context.commit('ADD_GENRES', genres.data.genres);
+                console.log(genres);
+                context.commit('ADD_GENRES', genres.genres);
                 return genres.data;
             })
             .catch((error) => {
